@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JobMatch — AI-ranked jobs for you</title>
+    <meta
+      name="description"
+      content="A local-first AI job discovery tool that ranks jobs against your ideal role profile."
+    />
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <div>
+          <h1>JobMatch</h1>
+          <p class="tagline">Curated, AI-ranked roles — matched to your profile, private by design.</p>
+        </div>
+      </div>
+      <button id="profileBtn" class="ghost-btn" type="button">Profile &amp; privacy</button>
+    </header>
+
+    <section class="search-panel">
+      <div class="search-row">
+        <div class="search-field">
+          <span class="search-icon" aria-hidden="true">&#128269;</span>
+          <input id="searchText" type="search" placeholder="Search by title or company" />
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field">
+          <input id="searchLocation" type="search" placeholder="Search by city or country" />
+        </div>
+        <button id="applyFilters" class="primary-btn" type="button">Filter jobs</button>
+      </div>
+
+      <div class="filter-row">
+        <select id="filterCategory" class="filter-select" aria-label="Category">
+          <option value="">Category</option>
+          <option value="product">Product</option>
+          <option value="digital">Digital</option>
+          <option value="data">AI / Data</option>
+          <option value="wine">Wine / Beverage</option>
+          <option value="marketplace">Marketplace</option>
+          <option value="saas">SaaS</option>
+        </select>
+
+        <select id="filterJobType" class="filter-select" aria-label="Job type">
+          <option value="">Job type</option>
+          <option value="permanent">Permanent</option>
+          <option value="fixed_term">Fixed term</option>
+          <option value="freelance">Freelance</option>
+        </select>
+
+        <select id="filterLocation" class="filter-select" aria-label="Location">
+          <option value="">Location</option>
+          <option value="madrid">Madrid</option>
+          <option value="barcelona">Barcelona</option>
+          <option value="spain">Spain</option>
+          <option value="remote">Europe remote</option>
+        </select>
+
+        <select id="filterRemote" class="filter-select" aria-label="Remote">
+          <option value="">Remote</option>
+          <option value="remote">Remote</option>
+          <option value="hybrid">Hybrid</option>
+          <option value="onsite">Onsite</option>
+        </select>
+
+        <select id="filterScore" class="filter-select" aria-label="Minimum match">
+          <option value="60">60%+ match</option>
+          <option value="70">70%+ match</option>
+          <option value="80">80%+ match</option>
+          <option value="90">90%+ match</option>
+        </select>
+
+        <select id="filterFreshness" class="filter-select" aria-label="Freshness">
+          <option value="7">Last 7 days</option>
+          <option value="14">Last 14 days</option>
+          <option value="30">Last 30 days</option>
+          <option value="9999">Any time</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="results-bar">
+      <span id="resultsSummary" class="results-summary">Loading jobs…</span>
+      <div class="sort-control">
+        <label for="sortBy">Sort by</label>
+        <select id="sortBy" class="filter-select">
+          <option value="match">Best match</option>
+          <option value="newest">Newest</option>
+        </select>
+      </div>
+    </section>
+
+    <main id="jobList" class="job-list" aria-live="polite"></main>
+
+    <!-- Profile / privacy dialog -->
+    <dialog id="profileDialog" class="dialog">
+      <form method="dialog" class="dialog-body">
+        <h2>Your profile &amp; privacy</h2>
+        <p class="muted">
+          Everything below is stored only in this browser. Your profile, feedback and match scores
+          are never uploaded or committed to GitHub.
+        </p>
+
+        <label class="field-label" for="profileLabel">Profile name</label>
+        <input id="profileLabel" class="text-input" type="text" />
+
+        <label class="field-label" for="profileRoles">Target role titles (comma separated)</label>
+        <textarea id="profileRoles" class="text-input" rows="2"></textarea>
+
+        <label class="field-label" for="profileDomains">Domains of interest (comma separated)</label>
+        <textarea id="profileDomains" class="text-input" rows="2"></textarea>
+
+        <label class="field-label" for="profileCities">Target cities (comma separated)</label>
+        <input id="profileCities" class="text-input" type="text" />
+
+        <div class="dialog-actions">
+          <button id="resetLocal" class="danger-btn" type="button">Clear all local data</button>
+          <div class="spacer"></div>
+          <button value="cancel" class="ghost-btn" type="submit">Close</button>
+          <button id="saveProfile" value="save" class="primary-btn" type="submit">Save profile</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="./assets/app.js"></script>
+  </body>
+</html>
