@@ -1,0 +1,13 @@
+{
+  "name": "job-match-app",
+  "version": "0.1.0",
+  "description": "Local-first, AI-ranked job discovery interface with static GitHub Pages delivery.",
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "ingest": "node scripts/ingest.mjs",
+    "ingest:dry": "node scripts/ingest.mjs --dry-run"
+  },
+  "license": "MIT",
+  "private": true
+}
