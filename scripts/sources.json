@@ -1,91 +1,113 @@
 {
   "sources": [
     {
-      "id": "empleovino-digital",
-      "name": "EmpleoVino (E-commerce/Digital)",
+      "id": "cono-casula",
+      "name": "cOnO Consultores by Casula",
       "tier": 1,
-      "method": "static-html",
-      "url": "https://empleovino.es/ofertas/empleos-de-e-commerce-digital/",
-      "notes": "Wine-sector digital roles. Watch for expired/covered postings and internships.",
-      "enabled": true
+      "method": "rss",
+      "variant": "teamtailor",
+      "url": "https://jobs.conobycasula.es/jobs.rss",
+      "page": "https://jobs.conobycasula.es/jobs",
+      "company": { "from": "fixed", "value": "cOnO Consultores (agency)" },
+      "countryDefault": "Spain",
+      "enabled": true,
+      "notes": "Teamtailor RSS. Real job URLs, structured location/role. Mostly commercial roles."
     },
     {
-      "id": "enojobs-es",
-      "name": "EnoJobsOnline (Spain)",
+      "id": "vinoempleo",
+      "name": "VinoEmpleo",
       "tier": 1,
-      "method": "static-html",
-      "url": "https://enojobs.online/jobs-vacancies/?jsf=jet-engine:jobs_desktop&tax=vacancy-category:121,120,125&meta=job_country_code!compare-like:ES",
-      "notes": "Wine-sector roles in Spain. Many non-product roles; rely on ranking to filter.",
-      "enabled": true
+      "method": "rss",
+      "variant": "wp",
+      "url": "https://vinoempleo.es/jobs/feed/",
+      "page": "https://vinoempleo.es/jobs/",
+      "company": { "from": "fixed", "value": "VinoEmpleo (job board)" },
+      "countryDefault": "Spain",
+      "enabled": true,
+      "notes": "WordPress WP Job Manager feed. Real job URLs, full descriptions."
+    },
+    {
+      "id": "enojobs",
+      "name": "EnoJobsOnline",
+      "tier": 1,
+      "method": "rss",
+      "variant": "wp",
+      "url": "https://enojobs.online/jobs-vacancies/feed/",
+      "page": "https://enojobs.online/jobs-vacancies/",
+      "company": { "from": "creator" },
+      "countryDefault": "",
+      "enabled": true,
+      "notes": "WordPress feed. Employer name via dc:creator. Descriptions often empty in feed."
+    },
+    {
+      "id": "empleovino-digital",
+      "name": "EmpleoVino (E-commerce/Digital)",
+      "tier": 2,
+      "method": "rss",
+      "variant": "wp",
+      "url": "https://empleovino.es/feed/",
+      "page": "https://empleovino.es/ofertas/empleos-de-e-commerce-digital/",
+      "company": { "from": "creator" },
+      "countryDefault": "Spain",
+      "enabled": false,
+      "notes": "DISABLED: no working job feed found (/feed/ 404s). Needs an HTML adapter."
     },
     {
       "id": "chelseaco-careers",
       "name": "Chelsea & Co Careers",
-      "tier": 1,
-      "method": "static-html",
-      "url": "https://www.chelseaco.agency/careers",
-      "notes": "Drinks digital agency, Barcelona/hybrid. Low volume, high interest.",
-      "enabled": true
-    },
-    {
-      "id": "cono-casula",
-      "name": "cOnO Consultores by Casula",
-      "tier": 1,
-      "method": "static-html",
-      "url": "https://jobs.conobycasula.es/jobs",
-      "notes": "Teamtailor board. Food/beverage/wine + commercial roles in Spain.",
-      "enabled": true
-    },
-    {
-      "id": "vinoempleo-digital",
-      "name": "VinoEmpleo (digital search)",
       "tier": 2,
-      "method": "static-html",
-      "url": "https://vinoempleo.es/jobs/?search_keywords=digital&search_location=",
-      "notes": "Search results may be sparse; cookie overlays may interfere.",
-      "enabled": true
+      "method": "html",
+      "url": "https://www.chelseaco.agency/careers",
+      "page": "https://www.chelseaco.agency/careers",
+      "enabled": false,
+      "notes": "DISABLED: small custom site, no feed. Needs a bespoke HTML adapter. Low volume."
     },
     {
       "id": "founderful-spm",
-      "name": "Founderful (Senior PM, remote/hybrid)",
-      "tier": 2,
-      "method": "dynamic-or-api",
-      "url": "https://jobs.founderful.com/jobs?jobTypes=Senior+Product+Manager&hybridOrRemoteOnly=true&postedSince=P30D",
-      "notes": "Startup/scaleup PM roles. Likely powered by 'Consider' job platform; check for API.",
-      "enabled": true
+      "name": "Founderful (Senior PM)",
+      "tier": 3,
+      "method": "api-consider",
+      "url": "https://jobs.founderful.com/jobs",
+      "page": "https://jobs.founderful.com/jobs?jobTypes=Senior+Product+Manager",
+      "enabled": false,
+      "notes": "DISABLED: 'Consider' job platform. JSON API needs correct board id/params (returns 500 without). High-value PM source — good next adapter."
     },
     {
       "id": "pearson-remote-pm",
       "name": "Pearson (remote Product Management)",
-      "tier": 2,
-      "method": "dynamic-or-api",
+      "tier": 3,
+      "method": "api-phenom",
       "url": "https://pearson.jobs/category/product-management/workplace-type/remote/jobs/",
-      "notes": "Large company; filter hard by relevance and Spain/remote eligibility.",
-      "enabled": true
+      "page": "https://pearson.jobs/category/product-management/workplace-type/remote/jobs/",
+      "enabled": false,
+      "notes": "DISABLED: JS-rendered board; deep-linked job URLs 404. Needs the site's search API."
     },
     {
       "id": "merck-product",
       "name": "Merck Group (product search)",
-      "tier": 2,
-      "method": "dynamic-or-api",
-      "url": "https://careers.merckgroup.com/global/en/search-results?keywords=product&s=1",
-      "notes": "Dynamic results; may include non-PM product roles.",
-      "enabled": true
+      "tier": 3,
+      "method": "api-phenom",
+      "url": "https://careers.merckgroup.com/global/en/search-results?keywords=product",
+      "page": "https://careers.merckgroup.com/global/en/search-results?keywords=product",
+      "enabled": false,
+      "notes": "DISABLED: Phenom-powered SPA. Needs the Phenom widget/search API. Real PM roles exist in Spain."
     },
     {
       "id": "vodafone-es-pm",
       "name": "Vodafone Spain (Product Management)",
       "tier": 3,
-      "method": "dynamic-eightfold",
-      "url": "https://jobs.vodafone.com/careers?query=Product+Management&location=Spain&sort_by=match&filter_include_remote=1",
-      "notes": "Eightfold-powered. Dynamic, anti-bot risk. Stretch source after stable ones work.",
-      "enabled": false
+      "method": "api-eightfold",
+      "url": "https://jobs.vodafone.com/careers?query=Product+Management&location=Spain",
+      "page": "https://jobs.vodafone.com/careers?query=Product+Management&location=Spain",
+      "enabled": false,
+      "notes": "DISABLED: Eightfold API returns 403 (Not authorized) without a valid session/token. Real PM roles exist; needs authenticated API adapter."
     }
   ],
   "ingestion": {
     "freshnessDays": 7,
-    "userAgent": "job-match-mvp/0.1 (personal portfolio project)",
-    "requestDelayMs": 2000,
+    "storeMaxAgeDays": 60,
+    "userAgent": "job-match-mvp/0.1 (+https://github.com/) personal portfolio project",
+    "requestDelayMs": 1500,
     "excludeExpired": true
   }
 }
