@@ -9,11 +9,21 @@ function haystack(job) {
     .toLowerCase();
 }
 
+function escapeRe(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// Whole-token match so short terms like "ai" don't match inside "Spain".
+function termMatches(text, term) {
+  const re = new RegExp(`(?<![\\p{L}\\p{N}])${escapeRe(term)}(?![\\p{L}\\p{N}])`, "iu");
+  return re.test(text);
+}
+
 function countHits(text, terms) {
   let hits = 0;
   const matched = [];
   for (const term of terms) {
-    if (term && text.includes(term.toLowerCase())) {
+    if (term && termMatches(text, term.toLowerCase())) {
       hits += 1;
       matched.push(term);
     }
@@ -21,10 +31,17 @@ function countHits(text, terms) {
   return { hits, matched };
 }
 
+// Signals that a role involves digital / product / data work — the kind of
+// wine-sector role that is genuinely relevant even without a "PM" title.
+const DIGITAL_SIGNAL = /\b(product manager|product owner|product lead|head of product|producto|digital|digitaliz|transformaci[oó]n|e-?commerce|comercio electr[oó]nico|online|crm|erp|business central|business intelligence|\bbi\b|data|datos|analyt|anal[ií]tic|marketing digital|growth|innovaci[oó]n|plataforma|platform|automatiz)\b/i;
+
 // Hard filters: return a reason string if the job should be excluded, else null.
+// Exclusions key off the TITLE (a winemaker who mentions "datos" is still a
+// winemaker), while the final relevance check looks at the whole posting.
 export function hardFilterReason(job) {
   const title = (job.title || "").toLowerCase();
   const text = haystack(job);
+  const titleDigital = DIGITAL_SIGNAL.test(title);
 
   if (job.isExpired) return "Expired or covered";
 
@@ -35,14 +52,21 @@ export function hardFilterReason(job) {
     return "Internship / trainee role";
   }
 
-  // Pure sales / commercial (and not a product role).
-  const salesish = /\b(sales|account manager|account executive|business development|comercial|delegado|vendedor)\b/.test(title);
-  const productish = /\b(product manager|product owner|product lead|head of product|producto)\b/.test(title);
-  if (salesish && !productish) return "Pure sales / commercial role";
+  // Cellar / vineyard / production / lab / hospitality — never relevant, even in wine.
+  const manualWineTitle = /\b(operari|pe[oó]n|vendimia|vendange|coupeur|porteur|grape picker|en[oó]log|viticol|viticultor|viticulture|ouvrier|bodeguero|tractorista|agr[ií]cola|mantenimiento|laboratorio|cellar hand|cellar door|winemaker|winemaking|sommelier|camarero|waiter|tasting room|front of house|enoturis|almac[eé]n|carretiller)\b/i;
+  if (manualWineTitle.test(title)) return "Cellar / vineyard / production / hospitality role";
 
-  // Pure engineering / design execution.
-  const engDesign = /\b(developer|desarrollador|engineer|graphic designer|diseñador|tractorista|prestashop)\b/.test(title);
+  // Pure sales / commercial (title-based, unless the title itself is digital/product).
+  const salesTitle = /\b(sales|account manager|account executive|business development|comercial|delegado|vendedor|responsable commercial)\b/i;
+  if (salesTitle.test(title) && !titleDigital) return "Pure sales / commercial role";
+
+  // Pure engineering / design execution (and not a digital/product management role).
+  const productish = /\b(product manager|product owner|product lead|head of product|producto)\b/i.test(title);
+  const engDesign = /\b(developer|desarrollador|programador|engineer|graphic designer|dise[ñn]ador|prestashop)\b/i.test(title);
   if (engDesign && !productish) return "Engineering / design execution role";
+
+  // Anything with no digital/product relevance at all is out of scope.
+  if (!DIGITAL_SIGNAL.test(text)) return "No digital / product relevance";
 
   return null;
 }
@@ -50,14 +74,22 @@ export function hardFilterReason(job) {
 function scoreRole(text, profile) {
   const pos = countHits(text, profile.roleTitlesPositive);
   const neg = countHits(text, profile.roleTitlesNegative);
+  const digital = countHits(text, profile.digitalRolePositive || []);
+
   let ratio = 0;
-  if (pos.hits >= 1) ratio = 1;
-  if (/\bproduct owner\b/.test(text) && !/\bproduct manager|product lead|head of product\b/.test(text)) {
-    ratio = 0.6; // partial credit for PO-only titles
+  if (pos.hits >= 1) {
+    ratio = 1; // explicit product-management title
+  } else if (digital.hits >= 1) {
+    // Digital / product-adjacent role (common on wine boards): scale with signal strength.
+    ratio = Math.min(0.9, 0.6 + (digital.hits - 1) * 0.15);
   }
-  ratio -= neg.hits * 0.25;
+  if (/\bproduct owner\b/.test(text) && !/\bproduct manager|product lead|head of product\b/.test(text)) {
+    ratio = Math.max(ratio, 0.6); // partial credit for PO-only titles
+  }
+  ratio -= neg.hits * 0.2;
   ratio = Math.max(0, Math.min(1, ratio));
-  return { points: ratio * profile.weights.role, matched: pos.matched };
+  const matched = pos.hits ? pos.matched : digital.matched;
+  return { points: ratio * profile.weights.role, matched };
 }
 
 function scoreSeniority(text, job, profile) {
@@ -189,11 +221,11 @@ function buildExplanations({ job, role, seniority, domain, skills, location, fee
   const senMax = profile.weights.seniority;
 
   if (role.points >= roleMax * 0.8) {
-    out.push("Strong role fit: title clearly matches a product management track.");
+    out.push("Strong role fit: clear product / digital ownership scope.");
   } else if (role.points >= roleMax * 0.4) {
-    out.push("Partial role fit: product-adjacent, but ownership is not fully clear.");
+    out.push("Relevant digital/product fit: digital, e-commerce, CRM or data scope that maps to your PM background.");
   } else {
-    out.push("Weak role fit: title does not clearly map to a PM role.");
+    out.push("Weak role fit: little product or digital relevance in the posting.");
   }
 
   if (seniority.points >= senMax * 0.8) {
