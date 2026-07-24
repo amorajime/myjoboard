@@ -1,0 +1,40 @@
+name: Ingest jobs
+
+# Scheduled crawl + normalize + publish jobs.json.
+# GitHub Pages cannot run crawlers itself, so this workflow does the ingestion
+# and commits the refreshed static data that the site reads.
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # daily at 06:00 UTC
+  workflow_dispatch: {} # allow manual runs from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run ingestion
+        run: node scripts/ingest.mjs
+
+      - name: Commit refreshed data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [[ -n "$(git status --porcelain data/jobs.json)" ]]; then
+            git add data/jobs.json
+            git commit -m "chore: refresh jobs.json [skip ci]"
+            git push
+          else
+            echo "No changes to jobs.json"
+          fi
