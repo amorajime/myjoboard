@@ -1,0 +1,91 @@
+{
+  "sources": [
+    {
+      "id": "empleovino-digital",
+      "name": "EmpleoVino (E-commerce/Digital)",
+      "tier": 1,
+      "method": "static-html",
+      "url": "https://empleovino.es/ofertas/empleos-de-e-commerce-digital/",
+      "notes": "Wine-sector digital roles. Watch for expired/covered postings and internships.",
+      "enabled": true
+    },
+    {
+      "id": "enojobs-es",
+      "name": "EnoJobsOnline (Spain)",
+      "tier": 1,
+      "method": "static-html",
+      "url": "https://enojobs.online/jobs-vacancies/?jsf=jet-engine:jobs_desktop&tax=vacancy-category:121,120,125&meta=job_country_code!compare-like:ES",
+      "notes": "Wine-sector roles in Spain. Many non-product roles; rely on ranking to filter.",
+      "enabled": true
+    },
+    {
+      "id": "chelseaco-careers",
+      "name": "Chelsea & Co Careers",
+      "tier": 1,
+      "method": "static-html",
+      "url": "https://www.chelseaco.agency/careers",
+      "notes": "Drinks digital agency, Barcelona/hybrid. Low volume, high interest.",
+      "enabled": true
+    },
+    {
+      "id": "cono-casula",
+      "name": "cOnO Consultores by Casula",
+      "tier": 1,
+      "method": "static-html",
+      "url": "https://jobs.conobycasula.es/jobs",
+      "notes": "Teamtailor board. Food/beverage/wine + commercial roles in Spain.",
+      "enabled": true
+    },
+    {
+      "id": "vinoempleo-digital",
+      "name": "VinoEmpleo (digital search)",
+      "tier": 2,
+      "method": "static-html",
+      "url": "https://vinoempleo.es/jobs/?search_keywords=digital&search_location=",
+      "notes": "Search results may be sparse; cookie overlays may interfere.",
+      "enabled": true
+    },
+    {
+      "id": "founderful-spm",
+      "name": "Founderful (Senior PM, remote/hybrid)",
+      "tier": 2,
+      "method": "dynamic-or-api",
+      "url": "https://jobs.founderful.com/jobs?jobTypes=Senior+Product+Manager&hybridOrRemoteOnly=true&postedSince=P30D",
+      "notes": "Startup/scaleup PM roles. Likely powered by 'Consider' job platform; check for API.",
+      "enabled": true
+    },
+    {
+      "id": "pearson-remote-pm",
+      "name": "Pearson (remote Product Management)",
+      "tier": 2,
+      "method": "dynamic-or-api",
+      "url": "https://pearson.jobs/category/product-management/workplace-type/remote/jobs/",
+      "notes": "Large company; filter hard by relevance and Spain/remote eligibility.",
+      "enabled": true
+    },
+    {
+      "id": "merck-product",
+      "name": "Merck Group (product search)",
+      "tier": 2,
+      "method": "dynamic-or-api",
+      "url": "https://careers.merckgroup.com/global/en/search-results?keywords=product&s=1",
+      "notes": "Dynamic results; may include non-PM product roles.",
+      "enabled": true
+    },
+    {
+      "id": "vodafone-es-pm",
+      "name": "Vodafone Spain (Product Management)",
+      "tier": 3,
+      "method": "dynamic-eightfold",
+      "url": "https://jobs.vodafone.com/careers?query=Product+Management&location=Spain&sort_by=match&filter_include_remote=1",
+      "notes": "Eightfold-powered. Dynamic, anti-bot risk. Stretch source after stable ones work.",
+      "enabled": false
+    }
+  ],
+  "ingestion": {
+    "freshnessDays": 7,
+    "userAgent": "job-match-mvp/0.1 (personal portfolio project)",
+    "requestDelayMs": 2000,
+    "excludeExpired": true
+  }
+}
