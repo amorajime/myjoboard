@@ -20,6 +20,46 @@ export const DEFAULT_PROFILE = {
     "product owner", // partial credit only, see ranking.js
   ],
 
+  // Digital / product-adjacent roles. On wine-sector boards a role rarely says
+  // "Product Manager", but digital / e-commerce / CRM / data / transformation
+  // roles are strong matches for a PM moving into wine digitalization.
+  digitalRolePositive: [
+    "digital",
+    "digitalización",
+    "digitalizacion",
+    "digitalisation",
+    "transformación digital",
+    "transformacion digital",
+    "digital transformation",
+    "e-commerce",
+    "ecommerce",
+    "comercio electrónico",
+    "comercio electronico",
+    "online",
+    "venta directa",
+    "dtc",
+    "d2c",
+    "crm",
+    "erp",
+    "business central",
+    "bi",
+    "business intelligence",
+    "data",
+    "datos",
+    "analytics",
+    "analítica",
+    "analitica",
+    "marketing digital",
+    "growth",
+    "producto digital",
+    "innovación",
+    "innovacion",
+    "platform",
+    "plataforma",
+    "automatización",
+    "automatizacion",
+  ],
+
   // Negative title signals: reduce role fit.
   roleTitlesNegative: [
     "sales",
@@ -83,6 +123,16 @@ export const DEFAULT_PROFILE = {
     "data",
     "fintech",
     "platform",
+    "crm",
+    "erp",
+    "bi",
+    "digitalización",
+    "digitalizacion",
+    "transformación",
+    "transformacion",
+    "marketing",
+    "innovación",
+    "innovacion",
   ],
 
   // Skills / experience signals from the CV.
