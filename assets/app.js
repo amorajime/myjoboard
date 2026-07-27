@@ -65,6 +65,11 @@ function bindEvents() {
     });
   });
 
+  el("showFiltered").addEventListener("change", () => {
+    savePrefs();
+    render();
+  });
+
   el("applyFilters").addEventListener("click", render);
   el("profileBtn").addEventListener("click", openProfile);
   el("profileDialog").addEventListener("close", handleProfileClose);
@@ -88,6 +93,7 @@ function savePrefs() {
     score: controls.score.value,
     freshness: controls.freshness.value,
     sortBy: controls.sortBy.value,
+    showFiltered: el("showFiltered").checked,
   });
 }
 
@@ -102,6 +108,7 @@ function restorePrefs() {
       control.selectedIndex = 0;
     }
   }
+  if (p.showFiltered != null) el("showFiltered").checked = p.showFiltered;
 }
 
 // ---- Rendering ----
@@ -117,20 +124,36 @@ function render() {
     return { job, ...result, days: freshnessDays(job) };
   });
 
-  // Apply hard filters, threshold, freshness and UI filters.
-  let visible = scored.filter((s) => !s.excluded && s.score >= minScore);
-  visible = visible.filter((s) => s.days === null || s.days <= freshnessWindow);
-  visible = visible.filter((s) => matchesUiFilters(s.job));
+  // Classify each job: either a visible match, or filtered out with a reason.
+  const visible = [];
+  const filtered = [];
+  for (const s of scored) {
+    const reason = dropReason(s, minScore, freshnessWindow);
+    if (reason) filtered.push({ ...s, dropReason: reason });
+    else visible.push(s);
+  }
 
-  // Sort.
+  // Sort matches.
   if (controls.sortBy.value === "newest") {
     visible.sort((a, b) => (a.days ?? 9999) - (b.days ?? 9999));
   } else {
     visible.sort((a, b) => b.score - a.score);
   }
+  // Sort filtered by score so the "closest" near-misses show first.
+  filtered.sort((a, b) => b.score - a.score);
 
-  updateSummary(visible.length, scored.length);
+  updateSummary(visible.length, scored.length, filtered.length);
   renderList(visible, feedback);
+  renderFiltered(el("showFiltered").checked ? filtered : []);
+}
+
+// Returns the reason a job is not shown, or null if it is a visible match.
+function dropReason(s, minScore, freshnessWindow) {
+  if (s.excluded) return s.reason || "Filtered out";
+  if (!(s.days === null || s.days <= freshnessWindow)) return `Older than ${freshnessWindow} days`;
+  if (!matchesUiFilters(s.job)) return "Doesn't match current filters";
+  if (s.score < minScore) return `Below ${minScore}% match (scored ${s.score}%)`;
+  return null;
 }
 
 function matchesUiFilters(job) {
@@ -162,12 +185,13 @@ function matchesUiFilters(job) {
   return true;
 }
 
-function updateSummary(count, total) {
+function updateSummary(count, total, filteredCount) {
   const suffix = state.generatedAt
     ? ` · data updated ${new Date(state.generatedAt).toLocaleDateString()}`
     : "";
+  const filteredNote = filteredCount ? ` · ${filteredCount} filtered out` : "";
   el("resultsSummary").textContent =
-    `${count} match${count === 1 ? "" : "es"} above your threshold (of ${total} scanned)${suffix}`;
+    `${count} match${count === 1 ? "" : "es"} (of ${total} scanned)${filteredNote}${suffix}`;
 }
 
 function renderList(items, feedback) {
@@ -187,6 +211,36 @@ function renderList(items, feedback) {
   for (const item of items) {
     list.appendChild(renderCard(item, feedback[item.job.id] || null));
   }
+}
+
+function renderFiltered(items) {
+  const existing = el("filteredList");
+  if (existing) existing.remove();
+  if (!items.length) return;
+
+  const section = document.createElement("section");
+  section.id = "filteredList";
+  section.className = "filtered-list";
+
+  const heading = document.createElement("h2");
+  heading.className = "filtered-heading";
+  heading.textContent = `Filtered out (${items.length})`;
+  section.appendChild(heading);
+
+  for (const item of items) {
+    const { job, dropReason } = item;
+    const row = document.createElement("div");
+    row.className = "filtered-row";
+    row.innerHTML = `
+      <div class="filtered-main">
+        <a class="filtered-title" href="${escapeAttr(job.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(job.title)}</a>
+        <span class="filtered-meta">${escapeHtml([job.company, job.locationText, job.source].filter(Boolean).join(" · "))}</span>
+      </div>
+      <span class="filtered-reason">${escapeHtml(dropReason)}</span>`;
+    section.appendChild(row);
+  }
+
+  el("jobList").after(section);
 }
 
 function initials(company) {
