@@ -95,7 +95,12 @@ function restorePrefs() {
   const p = storage.getPrefs(null);
   if (!p) return;
   for (const [key, control] of Object.entries(controls)) {
-    if (control && p[key] != null) control.value = p[key];
+    if (!control || p[key] == null) continue;
+    control.value = p[key];
+    // Guard against stale saved values that no longer exist as <select> options.
+    if (control.tagName === "SELECT" && control.selectedIndex === -1) {
+      control.selectedIndex = 0;
+    }
   }
 }
 
@@ -103,7 +108,7 @@ function restorePrefs() {
 function render() {
   const feedback = storage.getFeedback();
   const signals = storage.getSignals();
-  const minScore = Number(controls.score.value || 60);
+  const minScore = Number(controls.score.value || 20);
   const freshnessWindow = Number(controls.freshness.value || 7);
 
   // Score every job locally.
