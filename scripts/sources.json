@@ -68,7 +68,7 @@
       "tier": 3,
       "method": "api-consider",
       "url": "https://jobs.founderful.com/jobs",
-      "page": "https://jobs.founderful.com/jobs?jobTypes=Senior+Product+Manager",
+      "page": "https://jobs.founderful.com/jobs?jobTypes=Senior+Product+Manager&jobTypes=Product+Manager",
       "enabled": false,
       "notes": "DISABLED: 'Consider' job platform. JSON API needs correct board id/params (returns 500 without). High-value PM source — good next adapter."
     },
@@ -77,8 +77,8 @@
       "name": "Pearson (remote Product Management)",
       "tier": 3,
       "method": "api-phenom",
-      "url": "https://pearson.jobs/category/product-management/workplace-type/remote/jobs/",
-      "page": "https://pearson.jobs/category/product-management/workplace-type/remote/jobs/",
+      "url": "https://pearson.jobs/category/product-management/jobs/",
+      "page": "https://pearson.jobs/category/product-management/jobs/",
       "enabled": false,
       "notes": "DISABLED: JS-rendered board; deep-linked job URLs 404. Needs the site's search API."
     },
@@ -87,8 +87,8 @@
       "name": "Merck Group (product search)",
       "tier": 3,
       "method": "api-phenom",
-      "url": "https://careers.merckgroup.com/global/en/search-results?keywords=product",
-      "page": "https://careers.merckgroup.com/global/en/search-results?keywords=product",
+      "url": "https://careers.merckgroup.com/global/en/search-results",
+      "page": "https://careers.merckgroup.com/global/en/search-results",
       "enabled": false,
       "notes": "DISABLED: Phenom-powered SPA. Needs the Phenom widget/search API. Real PM roles exist in Spain."
     },
