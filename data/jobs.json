@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-28T06:19:33.371Z",
+  "generatedAt": "2026-07-28T08:12:01.777Z",
   "freshnessDays": 7,
   "storeMaxAgeDays": 60,
   "jobs": [
@@ -33,14 +33,14 @@
       ]
     },
     {
-      "id": "n26-com-en-eu-careers-positions-8074094-gh-jid-8074094",
+      "id": "n26-com-en-eu-careers-positions-8088746-gh-jid-8088746",
       "source": "N26",
       "sourceUrl": "https://n26.com/en-eu/careers",
-      "url": "https://n26.com/en-eu/careers/positions/8074094?gh_jid=8074094",
+      "url": "https://n26.com/en-eu/careers/positions/8088746?gh_jid=8088746",
       "title": "Senior Atlassian Consultant",
       "company": "N26",
-      "locationText": "Berlin",
-      "country": "Berlin",
+      "locationText": "Barcelona",
+      "country": "Barcelona",
       "city": "",
       "workModel": "unknown",
       "contractType": "unknown",
@@ -62,14 +62,14 @@
       ]
     },
     {
-      "id": "n26-com-en-eu-careers-positions-8088746-gh-jid-8088746",
+      "id": "n26-com-en-eu-careers-positions-8074094-gh-jid-8074094",
       "source": "N26",
       "sourceUrl": "https://n26.com/en-eu/careers",
-      "url": "https://n26.com/en-eu/careers/positions/8088746?gh_jid=8088746",
+      "url": "https://n26.com/en-eu/careers/positions/8074094?gh_jid=8074094",
       "title": "Senior Atlassian Consultant",
       "company": "N26",
-      "locationText": "Barcelona",
-      "country": "Barcelona",
+      "locationText": "Berlin",
+      "country": "Berlin",
       "city": "",
       "workModel": "unknown",
       "contractType": "unknown",
@@ -493,14 +493,14 @@
       ]
     },
     {
-      "id": "job-boards-greenhouse-io-cabify-jobs-8547012002",
+      "id": "job-boards-greenhouse-io-cabify-jobs-8559454002",
       "source": "Cabify",
       "sourceUrl": "https://cabify.careers/en/jobs",
-      "url": "https://job-boards.greenhouse.io/cabify/jobs/8547012002",
+      "url": "https://job-boards.greenhouse.io/cabify/jobs/8559454002",
       "title": "Growth Demand Analyst",
       "company": "Cabify",
-      "locationText": "Madrid",
-      "country": "Madrid",
+      "locationText": "Buenos Aires",
+      "country": "Buenos Aires",
       "city": "",
       "workModel": "unknown",
       "contractType": "unknown",
@@ -523,14 +523,14 @@
       ]
     },
     {
-      "id": "job-boards-greenhouse-io-cabify-jobs-8559454002",
+      "id": "job-boards-greenhouse-io-cabify-jobs-8547012002",
       "source": "Cabify",
       "sourceUrl": "https://cabify.careers/en/jobs",
-      "url": "https://job-boards.greenhouse.io/cabify/jobs/8559454002",
+      "url": "https://job-boards.greenhouse.io/cabify/jobs/8547012002",
       "title": "Growth Demand Analyst",
       "company": "Cabify",
-      "locationText": "Buenos Aires",
-      "country": "Buenos Aires",
+      "locationText": "Madrid",
+      "country": "Madrid",
       "city": "",
       "workModel": "unknown",
       "contractType": "unknown",
@@ -1042,14 +1042,14 @@
       ]
     },
     {
-      "id": "n26-com-en-eu-careers-positions-8077056-gh-jid-8077056",
+      "id": "n26-com-en-eu-careers-positions-8076631-gh-jid-8076631",
       "source": "N26",
       "sourceUrl": "https://n26.com/en-eu/careers",
-      "url": "https://n26.com/en-eu/careers/positions/8077056?gh_jid=8077056",
+      "url": "https://n26.com/en-eu/careers/positions/8076631?gh_jid=8076631",
       "title": "Engineering Manager - Runtime Platform",
       "company": "N26",
-      "locationText": "Barcelona",
-      "country": "Barcelona",
+      "locationText": "Berlin",
+      "country": "Berlin",
       "city": "",
       "workModel": "unknown",
       "contractType": "unknown",
@@ -1072,14 +1072,14 @@
       ]
     },
     {
-      "id": "n26-com-en-eu-careers-positions-8076631-gh-jid-8076631",
+      "id": "n26-com-en-eu-careers-positions-8077056-gh-jid-8077056",
       "source": "N26",
       "sourceUrl": "https://n26.com/en-eu/careers",
-      "url": "https://n26.com/en-eu/careers/positions/8076631?gh_jid=8076631",
+      "url": "https://n26.com/en-eu/careers/positions/8077056?gh_jid=8077056",
       "title": "Engineering Manager - Runtime Platform",
       "company": "N26",
-      "locationText": "Berlin",
-      "country": "Berlin",
+      "locationText": "Barcelona",
+      "country": "Barcelona",
       "city": "",
       "workModel": "unknown",
       "contractType": "unknown",
@@ -1191,36 +1191,6 @@
       ]
     },
     {
-      "id": "n26-com-en-eu-careers-positions-8054977-gh-jid-8054977",
-      "source": "N26",
-      "sourceUrl": "https://n26.com/en-eu/careers",
-      "url": "https://n26.com/en-eu/careers/positions/8054977?gh_jid=8054977",
-      "title": "Project Manager - Change Management and Control",
-      "company": "N26",
-      "locationText": "Madrid",
-      "country": "Madrid",
-      "city": "",
-      "workModel": "unknown",
-      "contractType": "unknown",
-      "seniority": "unknown",
-      "postedDate": "2026-07-24",
-      "firstSeen": "2026-07-28",
-      "lastChecked": "2026-07-28",
-      "isExpired": false,
-      "salary": null,
-      "description": "About the opportunity We are seeking a Project Manager to join the Change Management and Control team in Madrid. Our team sits within Global Operations Services (GOS) and is responsible for ensuring the successful delivery of cross-functional initiatives and programs across N26 Operations while working alongside stakeholders across the entire organisation (Legal, Business Operations, Product and Growth). In particular, working in change management and project management for the Operations department. In your next challenge, you will: Collaborate with stakeholders across various functions to address company management and strategic topics, such as roadmap development and business case formulation Take responsibility for preparing, supporting, and proactively challenging organizational chang",
-      "descriptionQuality": "full",
-      "tags": [
-        "fintech",
-        "consumer",
-        "global operations services",
-        "product"
-      ],
-      "sourceHistory": [
-        "N26"
-      ]
-    },
-    {
       "id": "n26-com-en-eu-careers-positions-7981885-gh-jid-7981885",
       "source": "N26",
       "sourceUrl": "https://n26.com/en-eu/careers",
@@ -1309,38 +1279,6 @@
       ]
     },
     {
-      "id": "n26-com-en-eu-careers-positions-7996996-gh-jid-7996996",
-      "source": "N26",
-      "sourceUrl": "https://n26.com/en-eu/careers",
-      "url": "https://n26.com/en-eu/careers/positions/7996996?gh_jid=7996996",
-      "title": "Senior Product Manager - Operations Automation & Enablement (OAE)",
-      "company": "N26",
-      "locationText": "Barcelona",
-      "country": "Barcelona",
-      "city": "",
-      "workModel": "unknown",
-      "contractType": "unknown",
-      "seniority": "senior",
-      "postedDate": "2026-07-24",
-      "firstSeen": "2026-07-28",
-      "lastChecked": "2026-07-28",
-      "isExpired": false,
-      "salary": null,
-      "description": "About the opportunity We are seeking a hands-on, strategic Senior Product Manager - Ops Automation & Enablement (OAE) with a passion for building the intelligence and systems behind world-class banking operations. This is a true builder’s role: you will lead the strategy, design, delivery, and enterprise-scale adoption of Agentic AI, hyperautomation, process mining, and internal tooling to reshape how complex, control-intensive Banking Operations are executed. You will work cross-functionally with product managers, engineers, data scientists, and operational leaders to ensure N26 can scale aggressively across markets and product offerings without proportional headcount growth—all while maintaining the strict regulatory and quality standards our customers expect. In this role, you will: Lea",
-      "descriptionQuality": "full",
-      "tags": [
-        "fintech",
-        "consumer",
-        "product - assistance",
-        "product",
-        "data",
-        "ai"
-      ],
-      "sourceHistory": [
-        "N26"
-      ]
-    },
-    {
       "id": "n26-com-en-eu-careers-positions-7996650-gh-jid-7996650",
       "source": "N26",
       "sourceUrl": "https://n26.com/en-eu/careers",
@@ -1373,14 +1311,46 @@
       ]
     },
     {
-      "id": "n26-com-en-eu-careers-positions-7140058-gh-jid-7140058",
+      "id": "n26-com-en-eu-careers-positions-7996996-gh-jid-7996996",
       "source": "N26",
       "sourceUrl": "https://n26.com/en-eu/careers",
-      "url": "https://n26.com/en-eu/careers/positions/7140058?gh_jid=7140058",
+      "url": "https://n26.com/en-eu/careers/positions/7996996?gh_jid=7996996",
+      "title": "Senior Product Manager - Operations Automation & Enablement (OAE)",
+      "company": "N26",
+      "locationText": "Barcelona",
+      "country": "Barcelona",
+      "city": "",
+      "workModel": "unknown",
+      "contractType": "unknown",
+      "seniority": "senior",
+      "postedDate": "2026-07-24",
+      "firstSeen": "2026-07-28",
+      "lastChecked": "2026-07-28",
+      "isExpired": false,
+      "salary": null,
+      "description": "About the opportunity We are seeking a hands-on, strategic Senior Product Manager - Ops Automation & Enablement (OAE) with a passion for building the intelligence and systems behind world-class banking operations. This is a true builder’s role: you will lead the strategy, design, delivery, and enterprise-scale adoption of Agentic AI, hyperautomation, process mining, and internal tooling to reshape how complex, control-intensive Banking Operations are executed. You will work cross-functionally with product managers, engineers, data scientists, and operational leaders to ensure N26 can scale aggressively across markets and product offerings without proportional headcount growth—all while maintaining the strict regulatory and quality standards our customers expect. In this role, you will: Lea",
+      "descriptionQuality": "full",
+      "tags": [
+        "fintech",
+        "consumer",
+        "product - assistance",
+        "product",
+        "data",
+        "ai"
+      ],
+      "sourceHistory": [
+        "N26"
+      ]
+    },
+    {
+      "id": "n26-com-en-eu-careers-positions-7140089-gh-jid-7140089",
+      "source": "N26",
+      "sourceUrl": "https://n26.com/en-eu/careers",
+      "url": "https://n26.com/en-eu/careers/positions/7140089?gh_jid=7140089",
       "title": "Senior Product Manager - Payment Processing & Settlement",
       "company": "N26",
-      "locationText": "Berlin",
-      "country": "Berlin",
+      "locationText": "Barcelona",
+      "country": "Barcelona",
       "city": "",
       "workModel": "unknown",
       "contractType": "unknown",
@@ -1403,14 +1373,14 @@
       ]
     },
     {
-      "id": "n26-com-en-eu-careers-positions-7140089-gh-jid-7140089",
+      "id": "n26-com-en-eu-careers-positions-7140058-gh-jid-7140058",
       "source": "N26",
       "sourceUrl": "https://n26.com/en-eu/careers",
-      "url": "https://n26.com/en-eu/careers/positions/7140089?gh_jid=7140089",
+      "url": "https://n26.com/en-eu/careers/positions/7140058?gh_jid=7140058",
       "title": "Senior Product Manager - Payment Processing & Settlement",
       "company": "N26",
-      "locationText": "Barcelona",
-      "country": "Barcelona",
+      "locationText": "Berlin",
+      "country": "Berlin",
       "city": "",
       "workModel": "unknown",
       "contractType": "unknown",
@@ -3911,6 +3881,37 @@
       ]
     },
     {
+      "id": "job-boards-greenhouse-io-canonical-jobs-5422728",
+      "source": "Canonical",
+      "sourceUrl": "https://canonical.com/careers/product",
+      "url": "https://job-boards.greenhouse.io/canonical/jobs/5422728",
+      "title": "Project Manager - Ubuntu Embedded Systems",
+      "company": "Canonical",
+      "locationText": "Office Based - Taipei, Taiwan",
+      "country": "Taiwan",
+      "city": "Office Based - Taipei",
+      "workModel": "unknown",
+      "contractType": "unknown",
+      "seniority": "unknown",
+      "postedDate": "2026-07-16",
+      "firstSeen": "2026-07-28",
+      "lastChecked": "2026-07-28",
+      "isExpired": false,
+      "salary": null,
+      "description": "Canonical is a leading provider of open source software and operating systems to the global enterprise and technology markets. Our platform, Ubuntu, is very widely used in breakthrough enterprise initiatives such as public cloud, data science, AI, engineering innovation, and IoT. Our customers include the world's leading public cloud and silicon providers, and industry leaders in many sectors. The company is a pioneer of global distributed collaboration, with 1200+ colleagues in 75+ countries and very few office-based roles. Teams meet two to four times yearly in person, in interesting locations around the world, to align on strategy and execution. The company is founder-led, profitable, and growing. We are hiring a Project Manager - Ubuntu Embedded Systems at Canonical As a project manage",
+      "descriptionQuality": "full",
+      "tags": [
+        "saas",
+        "open-source",
+        "operations",
+        "data",
+        "ai"
+      ],
+      "sourceHistory": [
+        "Canonical"
+      ]
+    },
+    {
       "id": "job-boards-greenhouse-io-canonical-jobs-2808065",
       "source": "Canonical",
       "sourceUrl": "https://canonical.com/careers/product",
@@ -3951,37 +3952,6 @@
       "locationText": "Home Based - APAC",
       "country": "Home Based - APAC",
       "city": "",
-      "workModel": "unknown",
-      "contractType": "unknown",
-      "seniority": "unknown",
-      "postedDate": "2026-07-16",
-      "firstSeen": "2026-07-28",
-      "lastChecked": "2026-07-28",
-      "isExpired": false,
-      "salary": null,
-      "description": "Canonical is a leading provider of open source software and operating systems to the global enterprise and technology markets. Our platform, Ubuntu, is very widely used in breakthrough enterprise initiatives such as public cloud, data science, AI, engineering innovation, and IoT. Our customers include the world's leading public cloud and silicon providers, and industry leaders in many sectors. The company is a pioneer of global distributed collaboration, with 1200+ colleagues in 75+ countries and very few office-based roles. Teams meet two to four times yearly in person, in interesting locations around the world, to align on strategy and execution. The company is founder-led, profitable, and growing. We are hiring a Project Manager - Ubuntu Embedded Systems at Canonical As a project manage",
-      "descriptionQuality": "full",
-      "tags": [
-        "saas",
-        "open-source",
-        "operations",
-        "data",
-        "ai"
-      ],
-      "sourceHistory": [
-        "Canonical"
-      ]
-    },
-    {
-      "id": "job-boards-greenhouse-io-canonical-jobs-5422728",
-      "source": "Canonical",
-      "sourceUrl": "https://canonical.com/careers/product",
-      "url": "https://job-boards.greenhouse.io/canonical/jobs/5422728",
-      "title": "Project Manager - Ubuntu Embedded Systems",
-      "company": "Canonical",
-      "locationText": "Office Based - Taipei, Taiwan",
-      "country": "Taiwan",
-      "city": "Office Based - Taipei",
       "workModel": "unknown",
       "contractType": "unknown",
       "seniority": "unknown",
@@ -5272,6 +5242,36 @@
       ]
     },
     {
+      "id": "explore-jobs-netflix-net-careers-job-790316964885",
+      "source": "Netflix",
+      "sourceUrl": "https://jobs.netflix.com/careers/product",
+      "url": "https://explore.jobs.netflix.net/careers/job/790316964885",
+      "title": "Business Partner, Finance Procurement Operations (Ads & Product)",
+      "company": "Netflix",
+      "locationText": "Sao Paulo, Brazil",
+      "country": "Brazil",
+      "city": "Sao Paulo",
+      "workModel": "unknown",
+      "contractType": "unknown",
+      "seniority": "unknown",
+      "postedDate": "2026-07-07",
+      "firstSeen": "2026-07-28",
+      "lastChecked": "2026-07-28",
+      "isExpired": false,
+      "salary": null,
+      "description": "",
+      "descriptionQuality": "summary",
+      "tags": [
+        "media",
+        "streaming",
+        "consumer",
+        "core finance & controllership · streaming"
+      ],
+      "sourceHistory": [
+        "Netflix"
+      ]
+    },
+    {
       "id": "explore-jobs-netflix-net-careers-job-790316972401",
       "source": "Netflix",
       "sourceUrl": "https://jobs.netflix.com/careers/product",
@@ -5297,36 +5297,6 @@
         "consumer",
         "product management · streaming",
         "product"
-      ],
-      "sourceHistory": [
-        "Netflix"
-      ]
-    },
-    {
-      "id": "explore-jobs-netflix-net-careers-job-790316964885",
-      "source": "Netflix",
-      "sourceUrl": "https://jobs.netflix.com/careers/product",
-      "url": "https://explore.jobs.netflix.net/careers/job/790316964885",
-      "title": "Business Partner, Finance Procurement Operations (Ads & Product)",
-      "company": "Netflix",
-      "locationText": "Sao Paulo, Brazil",
-      "country": "Brazil",
-      "city": "Sao Paulo",
-      "workModel": "unknown",
-      "contractType": "unknown",
-      "seniority": "unknown",
-      "postedDate": "2026-07-07",
-      "firstSeen": "2026-07-28",
-      "lastChecked": "2026-07-28",
-      "isExpired": false,
-      "salary": null,
-      "description": "",
-      "descriptionQuality": "summary",
-      "tags": [
-        "media",
-        "streaming",
-        "consumer",
-        "core finance & controllership · streaming"
       ],
       "sourceHistory": [
         "Netflix"
@@ -7295,37 +7265,6 @@
       ]
     },
     {
-      "id": "explore-jobs-netflix-net-careers-job-790316306351",
-      "source": "Netflix",
-      "sourceUrl": "https://jobs.netflix.com/careers/product",
-      "url": "https://explore.jobs.netflix.net/careers/job/790316306351",
-      "title": "Staff Product Designer, Developer Platform",
-      "company": "Netflix",
-      "locationText": "USA - Remote, USA - Remote",
-      "country": "USA - Remote",
-      "city": "USA - Remote",
-      "workModel": "remote",
-      "contractType": "unknown",
-      "seniority": "unknown",
-      "postedDate": "2026-06-10",
-      "firstSeen": "2026-07-28",
-      "lastChecked": "2026-07-28",
-      "isExpired": false,
-      "salary": null,
-      "description": "",
-      "descriptionQuality": "summary",
-      "tags": [
-        "media",
-        "streaming",
-        "consumer",
-        "product design · streaming",
-        "engineering"
-      ],
-      "sourceHistory": [
-        "Netflix"
-      ]
-    },
-    {
       "id": "explore-jobs-netflix-net-careers-job-790316310841",
       "source": "Netflix",
       "sourceUrl": "https://jobs.netflix.com/careers/product",
@@ -7351,6 +7290,37 @@
         "consumer",
         "data & insights · streaming",
         "data"
+      ],
+      "sourceHistory": [
+        "Netflix"
+      ]
+    },
+    {
+      "id": "explore-jobs-netflix-net-careers-job-790316306351",
+      "source": "Netflix",
+      "sourceUrl": "https://jobs.netflix.com/careers/product",
+      "url": "https://explore.jobs.netflix.net/careers/job/790316306351",
+      "title": "Staff Product Designer, Developer Platform",
+      "company": "Netflix",
+      "locationText": "USA - Remote, USA - Remote",
+      "country": "USA - Remote",
+      "city": "USA - Remote",
+      "workModel": "remote",
+      "contractType": "unknown",
+      "seniority": "unknown",
+      "postedDate": "2026-06-10",
+      "firstSeen": "2026-07-28",
+      "lastChecked": "2026-07-28",
+      "isExpired": false,
+      "salary": null,
+      "description": "",
+      "descriptionQuality": "summary",
+      "tags": [
+        "media",
+        "streaming",
+        "consumer",
+        "product design · streaming",
+        "engineering"
       ],
       "sourceHistory": [
         "Netflix"
@@ -7390,15 +7360,15 @@
       ]
     },
     {
-      "id": "explore-jobs-netflix-net-careers-job-790316546081",
+      "id": "explore-jobs-netflix-net-careers-job-790316287334",
       "source": "Netflix",
       "sourceUrl": "https://jobs.netflix.com/careers/product",
-      "url": "https://explore.jobs.netflix.net/careers/job/790316546081",
-      "title": "Product Manager, Ads (Supply)",
+      "url": "https://explore.jobs.netflix.net/careers/job/790316287334",
+      "title": "Product Manager, Ads Platform (Experimentation Foundations)",
       "company": "Netflix",
-      "locationText": "Los Gatos, United States of America",
+      "locationText": "Los Angeles, United States of America",
       "country": "United States of America",
-      "city": "Los Gatos",
+      "city": "Los Angeles",
       "workModel": "unknown",
       "contractType": "unknown",
       "seniority": "unknown",
@@ -7421,15 +7391,15 @@
       ]
     },
     {
-      "id": "explore-jobs-netflix-net-careers-job-790316287334",
+      "id": "explore-jobs-netflix-net-careers-job-790316546081",
       "source": "Netflix",
       "sourceUrl": "https://jobs.netflix.com/careers/product",
-      "url": "https://explore.jobs.netflix.net/careers/job/790316287334",
-      "title": "Product Manager, Ads Platform (Experimentation Foundations)",
+      "url": "https://explore.jobs.netflix.net/careers/job/790316546081",
+      "title": "Product Manager, Ads (Supply)",
       "company": "Netflix",
-      "locationText": "Los Angeles, United States of America",
+      "locationText": "Los Gatos, United States of America",
       "country": "United States of America",
-      "city": "Los Angeles",
+      "city": "Los Gatos",
       "workModel": "unknown",
       "contractType": "unknown",
       "seniority": "unknown",
