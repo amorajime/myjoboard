@@ -8,7 +8,8 @@
 // bot-protected or JS-rendered APIs (Spotify, TUI/Phenom, Hiberus, etc.) are
 // disabled until a dedicated adapter is written.
 //
-// Supported methods: rss, greenhouse, ashby, recruitee, workable, eightfold.
+// Supported methods: rss, greenhouse, ashby, recruitee, workable, eightfold,
+// lever, smartrecruiters, wpajax, html.
 // Dependency-free: uses Node 20+ global fetch, a small RSS parser, and JSON.
 //
 // Usage:
@@ -358,6 +359,117 @@ async function eightfoldAdapter(source, config) {
     .filter(Boolean);
 }
 
+// Lever postings API: [ … ] (array)
+async function leverAdapter(source, config) {
+  const data = await fetchJson(source.url, config);
+  const list = Array.isArray(data) ? data : data.data || [];
+  return list
+    .map((j) => {
+      const title = j.text || "";
+      const c = j.categories || {};
+      const department = [c.department, c.team].filter(Boolean).join(" · ");
+      if (source.filter && !passesRoleFilter(title, department)) return null;
+      const description = (j.descriptionPlain || "").replace(/\s+/g, " ").trim().slice(0, 800);
+      const searchText = `${title} ${description} ${department}`;
+      return baseJob(source, {
+        url: j.hostedUrl || j.applyUrl,
+        title,
+        locationText: c.location || (c.allLocations || []).join(", "),
+        postedDate: toIso(Number(j.createdAt) || j.createdAt),
+        description,
+        searchText,
+        remote: /remote/i.test(`${c.workplaceType || ""} ${c.location || ""}`),
+        extraTags: [c.department, c.team],
+      });
+    })
+    .filter(Boolean);
+}
+
+// SmartRecruiters posting API. Lists postings, then fetches each kept posting's
+// detail for the description (only for roles that pass the product filter).
+async function smartRecruitersAdapter(source, config) {
+  const company = source.companyCode;
+  const delay = config.ingestion.requestDelayMs || 400;
+  const out = [];
+  for (let offset = 0; offset < 1000; offset += 100) {
+    const data = await fetchJson(
+      `https://api.smartrecruiters.com/v1/companies/${company}/postings?limit=100&offset=${offset}`,
+      config
+    );
+    const content = data.content || [];
+    for (const p of content) {
+      const title = p.name || "";
+      const department = p.department?.label || "";
+      if (source.filter && !passesRoleFilter(title, department)) continue;
+      let description = "";
+      try {
+        const det = await fetchJson(`https://api.smartrecruiters.com/v1/companies/${company}/postings/${p.id}`, config);
+        const s = det.jobAd?.sections || {};
+        description = stripHtml([s.jobDescription?.text, s.qualifications?.text].filter(Boolean).join(" ")).slice(0, 800);
+        await sleep(delay);
+      } catch { /* description stays empty */ }
+      const loc = p.location || {};
+      const locationText = loc.fullLocation || [loc.city, loc.region, (loc.country || "").toUpperCase()].filter(Boolean).join(", ");
+      const searchText = `${title} ${description} ${department}`;
+      out.push(
+        baseJob(source, {
+          url: `https://jobs.smartrecruiters.com/${company}/${p.id}`,
+          title,
+          locationText,
+          postedDate: toIso(p.releasedDate),
+          description,
+          searchText,
+          remote: !!loc.remote,
+          extraTags: [department, p.industry?.label],
+        })
+      );
+    }
+    if (content.length < 100 || offset + 100 >= (data.totalFound || 0)) break;
+  }
+  return out;
+}
+
+// WordPress admin-ajax adapter (Adevinta). POSTs the jobs-search action and
+// reads the returned rows. Endpoint is live even when there are 0 open roles.
+async function wpAjaxAdapter(source, config) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 25000);
+  try {
+    const res = await fetch(`${source.ajaxUrl}?action=${source.ajaxAction}`, {
+      method: "POST",
+      headers: {
+        "User-Agent": config.ingestion.userAgent,
+        "Content-Type": "application/x-www-form-urlencoded",
+        Accept: "application/json, */*",
+      },
+      body: "search=&country=&city=&brand=&function=&fulltime_parttime=&job-page=1",
+      signal: controller.signal,
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const items = data.data || [];
+    return items
+      .map((it) => {
+        const title = stripHtml(it.title || "");
+        const department = it.job_family_group || "";
+        if (source.filter && !passesRoleFilter(title, department)) return null;
+        const city = stripHtml(it.city || "");
+        return baseJob(source, {
+          url: it.url,
+          title,
+          locationText: [city, source.countryDefault].filter(Boolean).join(", "),
+          postedDate: null,
+          description: department,
+          searchText: `${title} ${department}`,
+          extraTags: [department],
+        });
+      })
+      .filter(Boolean);
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 function metaContent(html, prop) {
   const m = html.match(new RegExp(`<meta\\s+property="${prop}"\\s+content="([^"]*)"`, "i"));
   return m ? decodeEntities(m[1]).trim() : "";
@@ -381,6 +493,31 @@ async function htmlAdapter(source, config) {
     // Cheap pre-filter on the slug to avoid fetching obvious non-matches.
     if (source.filter && (ROLE_EXCLUDE_TITLE.test(words) || !ROLE_INCLUDE.test(words))) continue;
     const url = path.startsWith("http") ? path : `${source.baseUrl}${path}`;
+
+    // Some boards (e.g. Factorial) are JS-rendered with no OG tags, but the
+    // slug encodes the title. Derive it from the slug and skip the page fetch.
+    if (source.titleFromSlug) {
+      const title = path
+        .split("/")
+        .pop()
+        .replace(/-\d+$/, "")
+        .replace(/-/g, " ")
+        .replace(/\b\w/g, (c) => c.toUpperCase())
+        .trim();
+      if (!title || (source.filter && !passesRoleFilter(title, ""))) continue;
+      out.push(
+        baseJob(source, {
+          url,
+          title,
+          locationText: source.countryDefault || "",
+          postedDate: null,
+          description: "",
+          searchText: title,
+          extraTags: [],
+        })
+      );
+      continue;
+    }
     try {
       const html = await fetchText(url, config);
       const title = metaContent(html, "og:title") || (html.match(/<h1[^>]*>([^<]+)<\/h1>/i)?.[1] || "").trim();
@@ -438,6 +575,9 @@ const adapters = {
   recruitee: recruiteeAdapter,
   workable: workableAdapter,
   eightfold: eightfoldAdapter,
+  lever: leverAdapter,
+  smartrecruiters: smartRecruitersAdapter,
+  wpajax: wpAjaxAdapter,
   html: htmlAdapter,
 };
 
