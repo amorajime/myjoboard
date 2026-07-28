@@ -150,7 +150,9 @@ function render() {
 // Returns the reason a job is not shown, or null if it is a visible match.
 function dropReason(s, minScore, freshnessWindow) {
   if (s.excluded) return s.reason || "Filtered out";
-  if (!(s.days === null || s.days <= freshnessWindow)) return `Older than ${freshnessWindow} days`;
+  if (!(s.days === null || s.days <= freshnessWindow)) {
+    return freshnessWindow === 0 ? "Older than 24 hours" : `Older than ${freshnessWindow} days`;
+  }
   if (!matchesUiFilters(s.job)) return "Doesn't match current filters";
   if (s.score < minScore) return `Below ${minScore}% match (scored ${s.score}%)`;
   return null;
