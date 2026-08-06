@@ -19,6 +19,7 @@ const controls = {
   searchLocation: el("searchLocation"),
   category: el("filterCategory"),
   jobType: el("filterJobType"),
+  companySource: el("filterCompanySource"),
   location: el("filterLocation"),
   remote: el("filterRemote"),
   score: el("filterScore"),
@@ -28,7 +29,6 @@ const controls = {
 
 async function init() {
   state.profile = storage.getProfile(cloneDefaultProfile());
-  restorePrefs();
   bindEvents();
 
   try {
@@ -42,6 +42,8 @@ async function init() {
     renderError();
     return;
   }
+  populateCompanySourceFilter();
+  restorePrefs();
   render();
 }
 
@@ -51,6 +53,7 @@ function bindEvents() {
     controls.searchLocation,
     controls.category,
     controls.jobType,
+    controls.companySource,
     controls.location,
     controls.remote,
     controls.score,
@@ -88,6 +91,7 @@ function savePrefs() {
     searchLocation: controls.searchLocation.value,
     category: controls.category.value,
     jobType: controls.jobType.value,
+    companySource: controls.companySource.value,
     location: controls.location.value,
     remote: controls.remote.value,
     score: controls.score.value,
@@ -109,6 +113,21 @@ function restorePrefs() {
     }
   }
   if (p.showFiltered != null) el("showFiltered").checked = p.showFiltered;
+}
+
+function populateCompanySourceFilter() {
+  const values = new Set();
+  for (const job of state.jobs) {
+    if (job.company) values.add(job.company.trim());
+    if (job.source) values.add(job.source.trim());
+  }
+
+  for (const value of [...values].filter(Boolean).sort((a, b) => a.localeCompare(b))) {
+    const option = document.createElement("option");
+    option.value = value.toLowerCase();
+    option.textContent = value;
+    controls.companySource.appendChild(option);
+  }
 }
 
 // ---- Rendering ----
@@ -174,6 +193,14 @@ function matchesUiFilters(job) {
 
   const jt = controls.jobType.value;
   if (jt && job.contractType !== jt) return false;
+
+  const companySource = controls.companySource.value;
+  if (
+    companySource &&
+    ![job.company, job.source].some((value) => String(value || "").toLowerCase() === companySource)
+  ) {
+    return false;
+  }
 
   const locFilter = controls.location.value;
   if (locFilter) {
