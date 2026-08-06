@@ -33,7 +33,7 @@ function countHits(text, terms) {
 
 // Signals that a role involves digital / product / data work — the kind of
 // wine-sector role that is genuinely relevant even without a "PM" title.
-const DIGITAL_SIGNAL = /\b(product manager|product owner|product lead|head of product|producto|digital|digitaliz|transformaci[oó]n|e-?commerce|comercio electr[oó]nico|online|crm|erp|business central|business intelligence|\bbi\b|data|datos|analyt|anal[ií]tic|marketing digital|growth|innovaci[oó]n|plataforma|platform|automatiz)\b/i;
+const DIGITAL_SIGNAL = /\b(product manager|product owner|product builder|product lead|head of product|producto|digital|digitaliz|transformaci[oó]n|e-?commerce|comercio electr[oó]nico|online|crm|erp|business central|business intelligence|\bbi\b|data|datos|analyt|anal[ií]tic|marketing digital|growth|innovaci[oó]n|plataforma|platform|automatiz)\b/i;
 
 // Hard filters: return a reason string if the job should be excluded, else null.
 // Exclusions key off the TITLE (a winemaker who mentions "datos" is still a
@@ -61,7 +61,7 @@ export function hardFilterReason(job) {
   if (salesTitle.test(title) && !titleDigital) return "Pure sales / commercial role";
 
   // Pure engineering / design execution (and not a digital/product management role).
-  const productish = /\b(product manager|product owner|product lead|head of product|producto)\b/i.test(title);
+  const productish = /\b(product manager|product owner|product builder|product lead|head of product|producto)\b/i.test(title);
   const engDesign = /\b(developer|desarrollador|programador|engineer|graphic designer|dise[ñn]ador|prestashop)\b/i.test(title);
   if (engDesign && !productish) return "Engineering / design execution role";
 
@@ -82,6 +82,9 @@ function scoreRole(text, profile) {
   } else if (digital.hits >= 1) {
     // Digital / product-adjacent role (common on wine boards): scale with signal strength.
     ratio = Math.min(0.9, 0.6 + (digital.hits - 1) * 0.15);
+  }
+  if (/\bproduct builder\b/.test(text)) {
+    ratio = 1;
   }
   if (/\bproduct owner\b/.test(text) && !/\bproduct manager|product lead|head of product\b/.test(text)) {
     ratio = Math.max(ratio, 0.6); // partial credit for PO-only titles
