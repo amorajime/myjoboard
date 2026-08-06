@@ -17,6 +17,7 @@ export const DEFAULT_PROFILE = {
     "digital product manager",
     "growth product manager",
     "head of product",
+    "product builder",
     "product owner", // partial credit only, see ranking.js
   ],
 
