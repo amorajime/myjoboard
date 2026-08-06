@@ -317,6 +317,35 @@
       "notes": "Lever postings API. Filtered to product/digital/data roles."
     },
     {
+      "id": "remofirst",
+      "name": "RemoFirst",
+      "tier": 2,
+      "method": "lever",
+      "url": "https://api.lever.co/v0/postings/remofirst?mode=json",
+      "page": "https://jobs.lever.co/remofirst/",
+      "company": { "from": "fixed", "value": "RemoFirst" },
+      "baseTags": ["saas", "hr", "fintech"],
+      "countryDefault": "",
+      "filter": "product",
+      "enabled": true,
+      "notes": "Lever postings API. Filtered to product/digital/data roles."
+    },
+    {
+      "id": "groupe-faubourg",
+      "name": "Groupe Faubourg",
+      "tier": 2,
+      "method": "taleez",
+      "url": "https://groupe-faubourg.taleez.com/api/careez",
+      "page": "https://groupe-faubourg.taleez.com/",
+      "applyBaseUrl": "https://taleez.com/apply",
+      "company": { "from": "fixed", "value": "Groupe Faubourg" },
+      "baseTags": ["mobility", "automotive", "digital"],
+      "countryDefault": "FR",
+      "filter": "product",
+      "enabled": true,
+      "notes": "Taleez public career-site API. Filtered to product/digital/data roles."
+    },
+    {
       "id": "nexthink",
       "name": "Nexthink",
       "tier": 2,
