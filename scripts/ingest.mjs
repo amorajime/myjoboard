@@ -9,7 +9,7 @@
 // disabled until a dedicated adapter is written.
 //
 // Supported methods: rss, greenhouse, ashby, recruitee, workable, eightfold,
-// lever, smartrecruiters, wpajax, html.
+// lever, taleez, smartrecruiters, wpajax, html.
 // Dependency-free: uses Node 20+ global fetch, a small RSS parser, and JSON.
 //
 // Usage:
@@ -96,7 +96,7 @@ function inferContract(text) {
 }
 
 const TAG_RULES = [
-  ["product", /\b(product manager|product owner|producto|product lead|roadmap)\b/i],
+  ["product", /\b(product manager|product owner|product builder|producto|product lead|roadmap)\b/i],
   ["digital", /\b(digital|e-?commerce|ecommerce|online|web|crm|dtc)\b/i],
   ["data", /\b(data|datos|bi|business intelligence|erp|analytic|analítica|analitica)\b/i],
   ["ai", /\b(ai|ia|machine learning|inteligencia artificial)\b/i],
@@ -118,7 +118,7 @@ function inferTags(text, extra = [], base = []) {
 
 // Product/digital relevance filter for large generic tech boards, so we only
 // store roles aligned to the profile instead of the company's entire ATS.
-const ROLE_INCLUDE = /\b(product owner|product manager|producto|product|growth|digital|e-?commerce|ecommerce|crm|platform|plataforma|personali[sz]ation|marketing|analytic|analytics|data|program manager|project manager|ux\/?ui|ux|discovery|roadmap|merchandising)\b/i;
+const ROLE_INCLUDE = /\b(product owner|product manager|product builder|producto|product|growth|digital|e-?commerce|ecommerce|crm|platform|plataforma|personali[sz]ation|marketing|analytic|analytics|data|program manager|project manager|ux\/?ui|ux|discovery|roadmap|merchandising)\b/i;
 const ROLE_EXCLUDE_TITLE = /\b(engineer|developer|desarrollador|programador|architect|arquitecto|devops|sre|qa|quality assurance|tester|security|ciberseguridad|sysadmin|system administrator|administrador|scientist|android|ios|frontend|front-?end|backend|back-?end|full-?stack|network)\b/i;
 
 function passesRoleFilter(title, department) {
@@ -385,6 +385,49 @@ async function leverAdapter(source, config) {
     .filter(Boolean);
 }
 
+// Taleez public career-site API. The career payload includes all published
+// jobs and their application slugs; no authentication is required.
+async function taleezAdapter(source, config) {
+  const data = await fetchJson(source.url, config);
+  const list = Array.isArray(data.jobs) ? data.jobs : [];
+  const countryNames = new Intl.DisplayNames(["en"], { type: "region" });
+
+  return list
+    .map((j) => {
+      const title = j.label || "";
+      if (source.filter && !passesRoleFilter(title, "")) return null;
+
+      const location = j.location || {};
+      const countryCode = String(location.country || source.countryDefault || "").toUpperCase();
+      let country = countryCode;
+      try {
+        country = countryNames.of(countryCode) || countryCode;
+      } catch {
+        // Keep the raw value when Taleez returns a non-standard region code.
+      }
+      const locationText = [location.city, country].filter(Boolean).join(", ");
+      const searchText = `${title} ${j.contract || ""}`;
+      const job = baseJob(source, {
+        url: `${source.applyBaseUrl || "https://taleez.com/apply"}/${j.slug}`,
+        title,
+        locationText,
+        postedDate: toIso(j.publishDate || j.creationDate),
+        description: "",
+        searchText,
+        remote: !!j.remote,
+      });
+
+      if (job) {
+        job.contractType =
+          { CDI: "permanent", CDD: "fixed_term", STAGE: "internship", FREELANCE: "freelance" }[
+            String(j.contract || "").toUpperCase()
+          ] || job.contractType;
+      }
+      return job;
+    })
+    .filter(Boolean);
+}
+
 // SmartRecruiters posting API. Lists postings, then fetches each kept posting's
 // detail for the description (only for roles that pass the product filter).
 async function smartRecruitersAdapter(source, config) {
@@ -576,6 +619,7 @@ const adapters = {
   workable: workableAdapter,
   eightfold: eightfoldAdapter,
   lever: leverAdapter,
+  taleez: taleezAdapter,
   smartrecruiters: smartRecruitersAdapter,
   wpajax: wpAjaxAdapter,
   html: htmlAdapter,
