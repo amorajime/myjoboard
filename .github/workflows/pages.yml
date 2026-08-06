@@ -1,10 +1,10 @@
 name: Deploy to GitHub Pages
 
-# Publishes the static site (repo root) to GitHub Pages on every push to main.
+# Optional manual deployment. GitHub Pages is already configured to deploy
+# from the main branch, so running this workflow on every push creates two
+# simultaneous deployments to the same environment.
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch: {}
 
 permissions:
