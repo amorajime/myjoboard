@@ -251,6 +251,12 @@ body {
   color: var(--muted);
 }
 
+.filtered-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .filtered-reason {
   flex: none;
   font-size: 12px;
