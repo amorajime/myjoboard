@@ -140,7 +140,7 @@ function render() {
   // Score every job locally.
   let scored = state.jobs.map((job) => {
     const result = scoreJob(job, state.profile, signals);
-    return { job, ...result, days: freshnessDays(job) };
+    return { job, ...result, days: freshnessDays(job), vote: feedback[job.id] || null };
   });
 
   // Classify each job: either a visible match, or filtered out with a reason.
@@ -168,6 +168,7 @@ function render() {
 
 // Returns the reason a job is not shown, or null if it is a visible match.
 function dropReason(s, minScore, freshnessWindow) {
+  if (s.vote === "down") return "You gave this role a thumbs down";
   if (s.excluded) return s.reason || "Filtered out";
   if (!(s.days === null || s.days <= freshnessWindow)) {
     return freshnessWindow === 0 ? "Older than 24 hours" : `Older than ${freshnessWindow} days`;
@@ -257,7 +258,7 @@ function renderFiltered(items) {
   section.appendChild(heading);
 
   for (const item of items) {
-    const { job, dropReason } = item;
+    const { job, dropReason, vote } = item;
     const row = document.createElement("div");
     row.className = "filtered-row";
     row.innerHTML = `
@@ -265,7 +266,18 @@ function renderFiltered(items) {
         <a class="filtered-title" href="${escapeAttr(job.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(job.title)}</a>
         <span class="filtered-meta">${escapeHtml([job.company, job.locationText, job.source].filter(Boolean).join(" · "))}</span>
       </div>
-      <span class="filtered-reason">${escapeHtml(dropReason)}</span>`;
+      <div class="filtered-actions">
+        <span class="filtered-reason">${escapeHtml(dropReason)}</span>
+        ${
+          vote === "down"
+            ? '<button class="thumb active-down" data-undo-down type="button" title="Undo thumbs down">&#128078;</button>'
+            : ""
+        }
+      </div>`;
+    row.querySelector("[data-undo-down]")?.addEventListener("click", () => {
+      storage.setFeedback(job, "down");
+      render();
+    });
     section.appendChild(row);
   }
 
